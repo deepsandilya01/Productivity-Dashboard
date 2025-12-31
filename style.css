@@ -287,43 +287,138 @@ section.allElems {
   font-size: 40px;
 }
 
-.daily-planner-fullpage .day-planner{
-    background-color: var(--tri2);
-    height: 85%;
-    margin-top: 40px;
-    width: 100%;
-    border-radius: 10px;
-    padding: 30px;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: flex-start;
-    overflow: auto;
-    justify-content: space-between;
+.daily-planner-fullpage .day-planner {
+  background-color: var(--tri2);
+  height: 85%;
+  margin-top: 40px;
+  width: 100%;
+  border-radius: 10px;
+  padding: 30px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  overflow: auto;
+  justify-content: space-between;
 }
 
-.daily-planner-fullpage .day-planner .day-planner-time{
-    display: flex;
-    align-items: center;
-    position: relative;
-    width: 45%;
-    margin-bottom: 15px;
+.daily-planner-fullpage .day-planner .day-planner-time {
+  display: flex;
+  align-items: center;
+  position: relative;
+  width: 45%;
+  margin-bottom: 15px;
 }
 
-.day-planner .day-planner-time p{
-    position: absolute;
-    top: 12%;
-    left: 2%;
-    color: var(--tri1);
-    font-size: 16px;
+.day-planner .day-planner-time p {
+  position: absolute;
+  top: 12%;
+  left: 2%;
+  color: var(--tri1);
+  font-size: 16px;
 }
 
-.day-planner .day-planner-time input{
-    padding: 20px 45px;
-    width: 100%;
-    background-color: var(--sec);
-    border-radius: 5px;
-    border: none;
-    font-size: 35px;
-    padding-top: 34px;
-    outline: none;
+.day-planner .day-planner-time input {
+  padding: 20px 45px;
+  width: 100%;
+  background-color: var(--sec);
+  border-radius: 5px;
+  border: none;
+  font-size: 35px;
+  padding-top: 34px;
+  outline: none;
+}
+
+.motivation-fullpage {
+  position: relative;
+  overflow: auto;
+}
+
+.motivation-fullPage-container {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.motivation-fullpage .motivation-container {
+  height: 50%;
+  width: 70%;
+  border-radius: 50px;
+  position: relative;
+}
+
+.motivation-fullpage .motivation-container::after {
+  content: "";
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  background-color: var(--tri1);
+  border-radius: 50px;
+  scale: 1.15;
+  filter: blur(100px);
+  z-index: 8;
+}
+
+.motivation-fullpage .motivation-container .motivation-wrapper {
+  z-index: 10;
+  position: absolute;
+  width: 100%;
+  background-color: var(--tri1);
+  border-radius: 30px;
+  padding: 17px;
+  border: 6px solid var(--tri2);
+}
+
+.motivation-fullpage .motivation-container .motivation-wrapper img {
+  position: absolute;
+  right: 5%;
+  opacity: 0.3;
+  top: 1%;
+  height: 120px;
+}
+
+.motivation-1 {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.motivation-1 h2 {
+  font-size: 20px;
+  font-weight: 600;
+  background-color: var(--tri2);
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 20px;
+  width: fit-content;
+  font-weight: 500;
+}
+
+.motivation-2 {
+  padding: 30px;
+  margin-top: 12px;
+  /* margin-bottom: 10px; */
+}
+
+.motivation-2 h1 {
+  font-size: 30px;
+  font-weight: 700;
+  color: var(--sec);
+}
+
+.motivation-3 {
+  /* margin-top: 10px; */
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.motivation-3 h2 {
+  background-color: var(--tri2);
+  padding: 20px;
+  border-radius: 20px;
+  font-size: 20px;
+  width: fit-content;
+  font-weight: 500;
 }
