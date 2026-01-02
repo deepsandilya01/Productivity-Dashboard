@@ -67,6 +67,10 @@ section.allElems {
   overflow: auto;
 }
 
+section.allElems::-webkit-scrollbar {
+  display: none;
+}
+
 .elem {
   background-color: var(--tri1);
   font-size: 30px;
@@ -154,6 +158,10 @@ section.allElems {
   align-items: flex-start;
   padding: 30px;
   overflow: auto;
+}
+
+.todo-list-fullpage .todo-container .allTask::-webkit-scrollbar {
+  display: none;
 }
 
 .todo-list-fullpage .todo-container .addTask form {
@@ -301,6 +309,10 @@ section.allElems {
   justify-content: space-between;
 }
 
+.daily-planner-fullpage .day-planner::-webkit-scrollbar {
+  display: none;
+}
+
 .daily-planner-fullpage .day-planner .day-planner-time {
   display: flex;
   align-items: center;
@@ -421,4 +433,177 @@ section.allElems {
   font-size: 20px;
   width: fit-content;
   font-weight: 500;
+}
+
+.pomodoro-fullpage {
+  position: relative;
+}
+
+.pomodoro-fullpage h2 {
+  font-size: 50px;
+}
+
+.pomodoro-fullpage .pomo-timer {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+}
+
+.pomo-timer h1 {
+  font-size: 100px;
+}
+
+.pomo-timer button {
+  background-color: var(--tri2);
+  padding: 15px 30px;
+  font-size: 30px;
+  font-weight: 700;
+  margin: 10px;
+  border-radius: 5px;
+  border: none;
+  box-shadow: 7px 7px 0px var(--black);
+  transition: all ease 0.2s;
+}
+
+.pomo-timer button:active {
+  transform: scale(0.95);
+  box-shadow: 0px 0px 0px var(--black);
+}
+
+.pomodoro-fullpage .session {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  background-color: var(--green);
+  padding: 15px 30px;
+  font-size: 30px;
+  border-radius: 10px;
+}
+
+.daily-goals-fullpage .goals-container {
+  height: 85%;
+  width: 90%;
+  margin: 3vw 5vw;
+  background-color: var(--tri2);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2vw 2vw;
+  border-radius: 2vw;
+  box-shadow: 0px 0px 40px var(--tri2);
+}
+
+.daily-goals-fullpage {
+  overflow: auto;
+}
+
+.daily-goals-fullpage h1 {
+  font-size: 70px;
+}
+
+.daily-goals-fullpage::-webkit-scrollbar {
+  display: none;
+}
+
+.daily-goals-fullpage .goals-container .addGoal {
+  width: 90%;
+  height: 25%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.5vw;
+  background-color: var(--sec);
+  box-shadow: 0px 0px 20px var(--sec);
+  border: 4px solid var(--tri2);
+}
+
+.daily-goals-fullpage .goals-container .addGoal form {
+  display: flex;
+  width: 100%;
+  padding: 1vw 2vw;
+  justify-content: space-between;
+}
+
+.goals-container .addGoal form textarea {
+  padding-top: 1.5vw;
+  padding-left: 1vw;
+  width: 73%;
+  outline: none;
+  color: var(--pri);
+  background-color: var(--pri);
+  font-size: 2vw;
+  border-radius: 0.3vw;
+  border: none;
+}
+
+.goals-container .addGoal form button {
+  padding: 1.5vw 1.2vw;
+  width: 25%;
+  outline: none;
+  background-color: var(--tri1);
+  font-size: 1.6vw;
+  font-weight: 700;
+  border-radius: 0.3vw;
+  border: none;
+  transition: all ease 0.2s;
+  cursor: pointer;
+}
+
+.goals-container .addGoal form button:active {
+  scale: 0.97;
+}
+
+.daily-goals-fullpage .goals-container .allGoal {
+  width: 90%;
+  height: 70%;
+  border-radius: 1.5vw;
+  background-color: var(--sec);
+  box-shadow: 0px 0px 20px var(--sec);
+  border: 4px solid var(--tri2);
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 1.6vw;
+  overflow: auto;
+}
+
+.daily-goals-fullpage .goals-container .allGoal::-webkit-scrollbar {
+  display: none;
+}
+
+.goal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  background-color: var(--tri2);
+  padding: 1vw 1vw;
+  border-radius: 0.8vw;
+  margin-bottom: 0.5vw;
+  position: relative;
+}
+
+.goal p {
+  width: 74%;
+  font-size: 2vw;
+  color: white;
+}
+
+.goal button {
+  white-space: nowrap;
+  padding: 1vw 2vw;
+  background-color: var(--sec);
+  border-radius: 1vw;
+  border: none;
+  font-size: 2vw;
+  font-weight: 900;
+  cursor: pointer;
+}
+
+.goal button:active {
+  scale: 0.97;
 }

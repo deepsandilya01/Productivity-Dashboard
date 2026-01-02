@@ -3,13 +3,6 @@
     "development"
   ],
   "hints": {
-    "axe/parsing": [
-      "default",
-      {
-        "duplicate-id": "off",
-        "duplicate-id-active": "off"
-      }
-    ],
     "button-type": "off"
   }
 }

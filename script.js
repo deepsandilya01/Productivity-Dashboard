@@ -134,3 +134,123 @@ function motivationalQuote() {
 }
 
 motivationalQuote();
+
+function pomodoroTimer() {
+  let timer = document.querySelector(".pomo-timer h1");
+  let startBtn = document.querySelector(".pomo-timer .start-timer");
+  let pauseBtn = document.querySelector(".pomo-timer .pause-timer");
+  let resetBtn = document.querySelector(".pomo-timer .reset-timer");
+  let session = document.querySelector(".pomodoro-fullpage .session");
+  let isWorkSession = true;
+
+  let totalSeconds = 25 * 60;
+  let timerInterval = null;
+
+  function updateTimer() {
+    let minutes = Math.floor(totalSeconds / 60);
+    let seconds = totalSeconds % 60;
+
+    timer.innerHTML = `${String(minutes).padStart("2", "0")}:${String(
+      seconds
+    ).padStart("2", "0")}`;
+  }
+
+  function startTimer() {
+    clearInterval(timerInterval);
+
+    if (isWorkSession) {
+      timerInterval = setInterval(function () {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+          updateTimer();
+        } else {
+          isWorkSession = false;
+          clearInterval(timerInterval);
+          timer.innerHTML = "05:00";
+          session.innerHTML = "Take a Break";
+          session.style.backgroundColor = "var(--blue)";
+          totalSeconds = 5 * 60;
+        }
+      }, 10);
+    } else {
+      timerInterval = setInterval(function () {
+        if (totalSeconds > 0) {
+          totalSeconds--;
+          updateTimer();
+        } else {
+          isWorkSession = true;
+          clearInterval(timerInterval);
+          timer.innerHTML = "25:00";
+          session.innerHTML = "Work Session";
+          session.style.backgroundColor = "var(--green)";
+          totalSeconds = 25 * 60;
+        }
+      }, 10);
+    }
+  }
+
+  function pauseTimer() {
+    clearInterval(timerInterval);
+  }
+  function resetTimer() {
+    clearInterval(timerInterval);
+
+    isWorkSession = true;
+    totalSeconds = 25 * 60;
+
+    timer.innerHTML = "25:00";
+    session.innerHTML = "Work Session";
+    session.style.backgroundColor = "var(--green)";
+
+    timerInterval = null;
+  }
+  startBtn.addEventListener("click", startTimer);
+  pauseBtn.addEventListener("click", pauseTimer);
+  resetBtn.addEventListener("click", resetTimer);
+}
+
+pomodoroTimer();
+
+function dailyGoals() {
+  let form = document.querySelector(".addGoal form");
+  let goalDetailsInput = document.querySelector(".addGoal form textarea");
+
+  var currentGoal = [];
+
+  if (localStorage.getItem("currentGoal")) {
+    currentGoal = JSON.parse(localStorage.getItem("currentGoal"));
+  } else {
+    console.log("goal is empty");
+  }
+
+  function renderGoal() {
+    let allGoal = document.querySelector(".allGoal");
+    let clutter = "";
+
+    currentGoal.forEach(function (elem, idx) {
+      clutter += `<div class="goal">
+                        <p>${elem.details}</p>
+                        <button id="${idx}">Mark as completed</button>
+                    </div>`;
+    });
+
+    allGoal.innerHTML = clutter;
+    localStorage.setItem("currentGoal", JSON.stringify(currentGoal));
+
+    document.querySelectorAll(".goal button").forEach(function (btn) {
+      btn.addEventListener("click", function () {
+        currentGoal.splice(btn.id, 1);
+        renderGoal();
+      });
+    });
+  }
+  renderGoal();
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    currentGoal.push({ details: goalDetailsInput.value });
+    renderGoal();
+    goalDetailsInput.value = "";
+  });
+}
+
+dailyGoals();
