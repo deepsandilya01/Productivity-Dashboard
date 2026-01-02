@@ -4,111 +4,107 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Productivity Dashboard</title>
+    <title>Productivity DashBoard</title>
     <link rel="shortcut icon" href="https://copilot.microsoft.com/th/id/BCO.6275ed90-7199-48e7-a229-6c8817b9804b.png"
         type="image/x-icon">
-    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.8.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@4.7.0/fonts/remixicon.css" rel="stylesheet" />
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
-    <main>
-        <!-- <nav>
 
-        </nav> -->
-
+    <div id="main">
+        <nav>
+            <div class="nav-inner">
+                <h2>Productivity DashBoard</h2>
+                <div class="theme">
+                    <h4>Change Theme</h4>
+                </div>
+            </div>
+        </nav>
         <section class="allElems">
-
             <header>
                 <div class="header1">
                     <h2>22 may, 2025</h2>
                     <h1>Saturday, 1:00 pm</h1>
                     <input type="text" placeholder="Enter your location">
-                    <h4>Bhopal, India</h4>
+                     <h4>___</h4>
                 </div>
                 <div class="header2">
-                    <h2>12.2°C</h2>
-                    <h4>Mist</h4>
-                    <h3 class="precipitation">Precipitation: 0mm</h3>
-                    <h3 class="humidity">Humidity: 100%</h3>
-                    <h3 class="wind">Wind: 9 km/h</h3>
+                    <h2>--</h2>
+                    <h4>_______</h4>
+                    <h3 class="precipitation">Precipitation: __</h3>
+                    <h3 class="humidity">Humidity: __</h3>
+                    <h3 class="wind">Wind: __</h3>
                 </div>
             </header>
-
-            <div class="allFeatures">
-                <div class="todo elem" data-id="0">
-                    <img src="assets/images/todo.png" alt="">
+            <div class="all-features">
+                <div class="todo elem" id="0">
+                    <img src="https://images.unsplash.com/photo-1648457257285-cfbc3781cc54?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="">
                     <h2>To Do List</h2>
                 </div>
-                <div class="daily elem" data-id="1">
-                    <img src="assets/images/dailyplanner.png" alt="img not found">
+                <div class="daily elem" id="1">
+                    <img src="https://images.unsplash.com/photo-1678986718987-76f0b9357e0f?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="">
                     <h2>Daily Planner</h2>
                 </div>
-                <div class="moti elem" data-id="2">
-                    <img src="assets/images/motivation.png" alt="img not found">
+                <div class="moto elem" id="2">
+                    <img src="https://images.unsplash.com/photo-1648457147590-ef7dbec3cfc2?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="">
                     <h2>Motivation</h2>
                 </div>
-                <div class="pomo elem" data-id="3">
-                    <img src="assets/images/pomodorotimer.png" alt="img not found">
+                <div class="pomo elem" id="3">
+                    <img src="https://images.unsplash.com/photo-1648461409140-8435a67cf24f?q=80&w=735&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="">
                     <h2>Pomodoro Timer</h2>
                 </div>
-                <div class="goals elem" data-id="4">
-                    <img src="assets/images/dailygoal.png" alt="img not found">
+                <div class="goals elem" id="4">
+                    <img src="https://images.unsplash.com/photo-1714911463647-c3150ce15ad1?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+                        alt="">
                     <h2>Daily Goals</h2>
                 </div>
             </div>
         </section>
-
         <section class="fullElem todo-list-fullpage">
-            <button data-id="0" class="back" aria-label="Go back">Close<i class="ri-close-fill"></i></button>
-            <h5>Your Personalised Task List</h5>
+            <button class="back" id="0">Close</button>
+            <h2>Your Personalised Task List</h2>
             <div class="todo-container">
                 <div class="addTask">
                     <form>
-                        <input id="task-input" type="text" placeholder="Enter Task">
-                        <textarea placeholder="Enter Details" name="" cols="30" rows="5"></textarea>
+                        <input required id="task-input" type="text" placeholder="Enter Task">
+                        <textarea required placeholder="Enter details" cols="30" rows="10"></textarea>
                         <div class="mark-imp">
                             <input type="checkbox" name="" id="check">
-                            <label for="check">Mark as Important!</label>
+                            <label for="check">Mark as important!</label>
                         </div>
-
                         <button>Add Task</button>
                     </form>
                 </div>
                 <div class="allTask">
 
-
                 </div>
             </div>
         </section>
-
         <section class="fullElem daily-planner-fullpage">
-            <button data-id="1" class="back" aria-label="Go back">Close<i class="ri-close-fill"></i></button>
-            <h5>Plan Your Day to be more Productive</h5>
+            <button class="back" id="1">Close</button>
+            <h2>Plan your Day to be more Productive</h2>
+
             <div class="day-planner">
-                <div class="day-planner-time">
-                    <p>6:00-7:00</p>
-                    <input type="text" placeholder="...">
-                </div>
-                <div class="day-planner-time">
-                    <p>6:00</p>
-                    <input type="text" placeholder="...">
-                </div>
 
             </div>
         </section>
-
-        <section class="fullElem motivation-fullpage">
-            <button data-id="2" class="back" aria-label="Go back">Close<i class="ri-close-fill"></i></button>
-            <div class="motivation-fullPage-container">
-                <div class="motivation-container">
-                    <div class="motivation-wrapper">
-                        <img src="assets/images/icons8-quote-100.png" alt="images was not found">
+        <section class="fullElem motivational-fullpage">
+            <button class="back" id="2">Close</button>
+            <div class="motivation-fullpage-container">
+                <div class="motivational-container">
+                    <div class="motivational-wrapper">
+                        <img src="./icons8-quote-64.png" alt="">
                         <div class="motivation-1">
-                            <h2>Quote of the Day</h2>
+                            <h2>Quote of the day</h2>
                         </div>
                         <div class="motivation-2">
-                            <h1></h1>
+                            <h1>. . .</h1>
                         </div>
                         <div class="motivation-3">
                             <h2></h2>
@@ -117,11 +113,10 @@
                 </div>
             </div>
         </section>
-
         <section class="fullElem pomodoro-fullpage">
-            <button data-id="3" class="back" aria-label="Go back">Close<!-- <i class="ri-close-fill"></i> --></button>
+            <button class="back" id="3">Close</button>
             <h2>Study with me!</h2>
-            <h4 class="session">Work Session</h4>
+            <h4 class="session">Work session</h4>
             <div class="pomo-timer">
                 <h1>25:00</h1>
                 <button class="start-timer">Start</button>
@@ -129,9 +124,8 @@
                 <button class="reset-timer">Reset</button>
             </div>
         </section>
-
         <section class="fullElem daily-goals-fullpage">
-            <button data-id="4" class="back" aria-label="Go back">Close<i class="ri-close-fill"></i></button>
+            <button class="back" id="4">Close</button>
             <h1>Daily Goals</h1>
             <div class="goals-container">
                 <div class="addGoal">
@@ -145,7 +139,7 @@
                 </div>
             </div>
         </section>
-    </main>
+    </div>
 
     <script src="script.js"></script>
 </body>

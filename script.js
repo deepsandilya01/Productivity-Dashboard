@@ -1,20 +1,17 @@
 function openFeatures() {
-  var dashboard = document.querySelector(".allElems");
-  var allElems = document.querySelectorAll(".elem");
-  var fullElemPage = document.querySelectorAll(".fullElem");
-  var fullElemPageBackBtn = document.querySelectorAll(".fullElem .back");
+  let allElems = document.querySelectorAll(".elem");
+  let fullElemPage = document.querySelectorAll(".fullElem");
+  let fullElemPageBackBtn = document.querySelectorAll(".fullElem .back");
 
   allElems.forEach(function (elem) {
     elem.addEventListener("click", function () {
-      var id = Number(elem.dataset.id);
-      fullElemPage[id].style.display = "block";
+      fullElemPage[elem.id].style.display = "block";
     });
   });
 
   fullElemPageBackBtn.forEach(function (back) {
     back.addEventListener("click", function () {
-      var id = Number(back.dataset.id);
-      fullElemPage[id].style.display = "none";
+      fullElemPage[back.id].style.display = "none";
     });
   });
 }
@@ -22,32 +19,36 @@ function openFeatures() {
 openFeatures();
 
 function todoList() {
+  let form = document.querySelector(".addTask form");
+  let taskInput = document.querySelector(".addTask form #task-input");
+  let taskDetailsInput = document.querySelector(".addTask form textarea");
+  let taskCheckbox = document.querySelector(".addTask form #check");
+
   var currentTask = [];
 
-  if (localStorage.getItem("currentTask")) {
-    currentTask = JSON.parse(localStorage.getItem("currentTask"));
+  if (localStorage.getItem("CurrentTask")) {
+    currentTask = JSON.parse(localStorage.getItem("CurrentTask"));
   } else {
-    console.log("Task list is Empty");
+    console.log("task list is Empty");
   }
 
   function renderTask() {
-    let allTask = document.querySelector(".allTask");
+    var allTask = document.querySelector(".allTask");
 
     let sum = "";
-
     currentTask.forEach(function (elem, idx) {
-      sum =
-        sum +
-        `<div class="task">
-        <h5>${elem.task} <span class=${elem.imp}>imp</span></h5>
-        <p>${elem.details}</p>
-        <button id=${idx}>Mark as Completed</button>
-        </div>`;
+      sum += `<div class="task">
+                        <details>
+                        <summary>${elem.task} <span class="${elem.imp}">imp</span></summary>
+                        <p>${elem.details} </p>
+                        </details>
+                        
+                        <button id="${idx}">Mark as Completed</button>
+                    </div>`;
     });
 
     allTask.innerHTML = sum;
-
-    localStorage.setItem("currentTask", JSON.stringify(currentTask));
+    localStorage.setItem("CurrentTask", JSON.stringify(currentTask));
 
     document.querySelectorAll(".task button").forEach(function (btn) {
       btn.addEventListener("click", function () {
@@ -56,12 +57,8 @@ function todoList() {
       });
     });
   }
-  renderTask();
 
-  let form = document.querySelector(".addTask form");
-  let taskInput = document.querySelector(".addTask form #task-input");
-  let taskDetailsInput = document.querySelector(".addTask form textarea");
-  let taskCheckbox = document.querySelector(".addTask form #check");
+  renderTask();
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
@@ -71,7 +68,6 @@ function todoList() {
       imp: taskCheckbox.checked,
     });
     renderTask();
-
     taskCheckbox.checked = false;
     taskInput.value = "";
     taskDetailsInput.value = "";
@@ -81,129 +77,128 @@ function todoList() {
 todoList();
 
 function dailyPlanner() {
-  var dayPlanner = document.querySelector(".day-planner");
+  let dayPlanner = document.querySelector(".day-planner");
 
-  var dayPlanData = JSON.parse(localStorage.getItem("dayPlanData")) || {};
+  let dayPlaneData = JSON.parse(localStorage.getItem("dayPlaneData")) || {};
 
   var hours = Array.from(
     { length: 18 },
-    (_, idx) => `${6 + idx}:00 - ${7 + idx}:00`
+    (_, idx) => `${6 + idx} : 00 - ${7 + idx} : 00`
   );
 
-  var wholeDaySum = "";
-  hours.forEach(function (elem, idx) {
-    var savedData = dayPlanData[idx] || "";
+  let wholeDaySome = "";
 
-    wholeDaySum =
-      wholeDaySum +
-      `<div class="day-planner-time">
-    <p>${elem}</p>
-    <input id=${idx} type="text" placeholder="..." value=${savedData}>
-</div>`;
+  hours.forEach(function (elem, idx) {
+    let savedData = dayPlaneData[idx] || "";
+
+    wholeDaySome += `<div class="day-planner-time">
+                    <p>${elem}</p>
+                    <input id="${idx}" type="text" placeholder="..." value="${savedData}">
+                </div>`;
   });
 
-  dayPlanner.innerHTML = wholeDaySum;
+  dayPlanner.innerHTML = wholeDaySome;
 
   var dayPlannerInput = document.querySelectorAll(".day-planner input");
 
   dayPlannerInput.forEach(function (elem) {
     elem.addEventListener("input", function () {
-      console.log("hello");
-      dayPlanData[elem.id] = elem.value;
-
-      localStorage.setItem("dayPlanData", JSON.stringify(dayPlanData));
+      dayPlaneData[elem.id] = elem.value;
+      localStorage.setItem("dayPlaneData", JSON.stringify(dayPlaneData));
     });
   });
 }
-
 dailyPlanner();
 
-function motivationalQuote() {
-  var motivationQuoteContent = document.querySelector(".motivation-2 h1");
-  var motivationAuthor = document.querySelector(".motivation-3 h2");
+function motivationalQuotes() {
+  let motivationQuote = document.querySelector(".motivation-2 h1");
+  let motivationAuthor = document.querySelector(".motivation-3 h2");
 
   async function fetchQuote() {
-    let response = await fetch("https://dummyjson.com/quotes/random");
-    let data = await response.json();
-
-    motivationQuoteContent.innerHTML = data.quote;
-    motivationAuthor.innerHTML = data.author;
+    let res = await fetch(
+      "https://dummyjson.com/quotes/random?tag=motivational"
+    );
+    let data = await res.json();
+    motivationQuote.innerHTML = data.quote;
+    motivationAuthor.innerHTML = "-" + data.author;
   }
 
   fetchQuote();
 }
 
-motivationalQuote();
+motivationalQuotes();
 
 function pomodoroTimer() {
   let timer = document.querySelector(".pomo-timer h1");
   let startBtn = document.querySelector(".pomo-timer .start-timer");
   let pauseBtn = document.querySelector(".pomo-timer .pause-timer");
   let resetBtn = document.querySelector(".pomo-timer .reset-timer");
-  let session = document.querySelector(".pomodoro-fullpage .session");
+  let session = document.querySelector(".session");
+
   let isWorkSession = true;
 
-  let totalSeconds = 25 * 60;
   let timerInterval = null;
 
-  function updateTimer() {
-    let minutes = Math.floor(totalSeconds / 60);
-    let seconds = totalSeconds % 60;
+  let totalSeconds = 25 * 60;
 
-    timer.innerHTML = `${String(minutes).padStart("2", "0")}:${String(
-      seconds
-    ).padStart("2", "0")}`;
+  function updateTimer() {
+    let min = Math.floor(totalSeconds / 60);
+    let sec = totalSeconds % 60;
+
+    timer.innerHTML = `${String(min).padStart("2", 0)}:${String(sec).padStart(
+      "2",
+      0
+    )}`;
   }
 
   function startTimer() {
     clearInterval(timerInterval);
-
     if (isWorkSession) {
       timerInterval = setInterval(function () {
         if (totalSeconds > 0) {
           totalSeconds--;
           updateTimer();
         } else {
+          session.innerHTML = "Break Time";
+          session.style.color = "var(--sec)";
+          session.style.backgroundColor = "var(--pre)";
+          totalSeconds = 5 * 60;
           isWorkSession = false;
           clearInterval(timerInterval);
-          timer.innerHTML = "05:00";
-          session.innerHTML = "Take a Break";
-          session.style.backgroundColor = "var(--blue)";
-          totalSeconds = 5 * 60;
+          timer.innerHTML = `05:00`;
         }
-      }, 10);
+      }, 1);
     } else {
       timerInterval = setInterval(function () {
         if (totalSeconds > 0) {
           totalSeconds--;
           updateTimer();
         } else {
+          session.innerHTML = "Work Session";
+          session.style.color = "var(--pre)";
+          session.style.backgroundColor = "var(--tri1)";
+          totalSeconds = 25 * 60;
           isWorkSession = true;
           clearInterval(timerInterval);
-          timer.innerHTML = "25:00";
-          session.innerHTML = "Work Session";
-          session.style.backgroundColor = "var(--green)";
-          totalSeconds = 25 * 60;
+          timer.innerHTML = `25:00`;
         }
-      }, 10);
+      }, 1);
     }
   }
 
   function pauseTimer() {
     clearInterval(timerInterval);
   }
+
   function resetTimer() {
     clearInterval(timerInterval);
-
-    isWorkSession = true;
     totalSeconds = 25 * 60;
-
-    timer.innerHTML = "25:00";
     session.innerHTML = "Work Session";
-    session.style.backgroundColor = "var(--green)";
-
-    timerInterval = null;
+    session.style.color = "var(--pre)";
+    session.style.backgroundColor = "var(--tri1)";
+    updateTimer();
   }
+
   startBtn.addEventListener("click", startTimer);
   pauseBtn.addEventListener("click", pauseTimer);
   resetBtn.addEventListener("click", resetTimer);
@@ -256,9 +251,10 @@ function dailyGoals() {
 dailyGoals();
 
 function dateTimeWeather() {
-  const API_KEY = "1ea45e980d314de9bb4183939260201";
+  const API_KEY = "751765e0045f4357b15105848252412";
   let CITY = "";
 
+  /* ================= DOM CACHE ================= */
   const dom = {
     time: document.querySelector(".header1 h1"),
     date: document.querySelector(".header1 h2"),
@@ -273,6 +269,7 @@ function dateTimeWeather() {
   const headerInput = document.querySelector(".header1 input");
   const header1h4 = document.querySelector(".header1 h4");
 
+  /* ================= WEATHER ================= */
   async function weatherAPICall(city) {
     try {
       const res = await fetch(
@@ -281,6 +278,7 @@ function dateTimeWeather() {
 
       const data = await res.json();
 
+      // 🔴 API error handling (IMPORTANT)
       if (data.error) {
         throw new Error(data.error.message);
       }
@@ -307,17 +305,19 @@ function dateTimeWeather() {
     }
   }
 
+  /* ================= INPUT HANDLER ================= */
   headerInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       CITY = e.target.value.trim();
 
       if (CITY.length > 2) {
         weatherAPICall(CITY);
-        headerInput.value = "";
+        headerInput.value = ""; // input clear
       }
     }
   });
 
+  /* ================= TIME & DATE ================= */
   const days = [
     "Sunday",
     "Monday",
@@ -347,47 +347,43 @@ function dateTimeWeather() {
   function setBackground(hours) {
     let img = "";
 
-    // 🌙 Late Night (12 AM – 4 AM)
-    if (hours >= 0 && hours < 4) {
-      img = "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"; // deep night sky
-    }
-
-    // 🌌 Early Morning (4 AM – 6 AM)
-    else if (hours >= 4 && hours < 6) {
-      img = "https://images.unsplash.com/photo-1502082553048-f009c37129b9"; // dawn
-    }
-
-    // 🌅 Morning (6 AM – 9 AM)
-    else if (hours >= 6 && hours < 9) {
-      img = "https://images.unsplash.com/photo-1493359280673-61f0f1a7a11e"; // sunrise
-    }
-
-    // ☀️ Late Morning (9 AM – 12 PM)
-    else if (hours >= 9 && hours < 12) {
-      img = "https://images.unsplash.com/photo-1498354136128-58f790194fa7"; // bright morning
-    }
-
-    // 🌤️ Afternoon (12 PM – 4 PM)
-    else if (hours >= 12 && hours < 16) {
-      img = "https://images.unsplash.com/photo-1717361279773-b2e7ee713d2e"; // sunny afternoon
-    }
-
-    // 🌇 Evening (4 PM – 6 PM)
-    else if (hours >= 16 && hours < 18) {
-      img = "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429"; // golden hour
-    }
-
-    // 🌆 Sunset (6 PM – 8 PM)
-    else if (hours >= 18 && hours < 20) {
-      img = "https://images.unsplash.com/photo-1722999523044-80af4abe1ada"; // sunset
-    }
-
     // 🌙 Night (8 PM – 12 AM)
+    if (hours >= 20) {
+      img =
+        "https://images.unsplash.com/photo-1514912885225-5c9ec8507d68?auto=format&fit=crop&w=1600&q=80";
+    }
+    // 🌆 Evening (6 PM – 8 PM)
+    else if (hours >= 18) {
+      img =
+        "https://images.unsplash.com/photo-1722999523044-80af4abe1ada?auto=format&fit=crop&w=1600&q=80";
+    }
+    // ☀️ Afternoon (12 PM – 6 PM)
+    else if (hours >= 12) {
+      img =
+        "https://images.unsplash.com/photo-1717361279773-b2e7ee713d2e?auto=format&fit=crop&w=1600&q=80";
+    }
+    // 🌤 Morning (9 AM – 12 PM)
+    else if (hours >= 9) {
+      img =
+        "https://images.unsplash.com/photo-1498354136128-58f790194fa7?auto=format&fit=crop&w=1600&q=80";
+    }
+    // 🌅 Early Morning (6 AM – 9 AM)
+    else if (hours >= 6) {
+      img =
+        "https://images.unsplash.com/photo-1703359612447-9f1293138d13?auto=format&fit=crop&w=1600&q=80";
+    }
+    // 🌌 Late Night (12 AM – 6 AM)
     else {
-      img = "https://images.unsplash.com/photo-1514912885225-5c9ec8507d68"; // night city
+      img =
+        "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80";
     }
 
-    document.querySelector("header").style.backgroundImage = `url(${img})`;
+    // 🔥 FORCE UPDATE (important)
+    dom.header.style.backgroundImage = `url("${img}")`;
+    dom.header.style.backgroundSize = "cover";
+    dom.header.style.backgroundPosition = "center";
+
+    console.log("BG changed:", img); // ✅ DEBUG PROOF
   }
 
   function timeDate() {
@@ -414,3 +410,34 @@ function dateTimeWeather() {
 }
 
 dateTimeWeather();
+
+function themeChange() {
+  let rootElement = document.documentElement;
+
+  let flag = 0;
+
+  let theme = document.querySelector(".theme");
+  theme.addEventListener("click", function () {
+    if (flag === 0) {
+      rootElement.style.setProperty("--pre", "#50390aff");
+      rootElement.style.setProperty("--sec", "#FDF7E4");
+      rootElement.style.setProperty("--tri1", "#FFE1AF");
+      rootElement.style.setProperty("--tri2", "#d7ccb7ff");
+      flag = 1;
+    } else if (flag === 1) {
+      rootElement.style.setProperty("--pre", "#e4ffccff");
+      rootElement.style.setProperty("--sec", "#537D5D");
+      rootElement.style.setProperty("--tri1", "#b2b865ff");
+      rootElement.style.setProperty("--tri2", "#9EBC8A");
+      flag = 2;
+    } else if (flag === 2) {
+      rootElement.style.setProperty("--pre", "#F8F4E1");
+      rootElement.style.setProperty("--sec", "#391a05");
+      rootElement.style.setProperty("--tri1", "#FEBA17");
+      rootElement.style.setProperty("--tri2", "#74512D");
+      flag = 0;
+    }
+  });
+}
+
+themeChange();
