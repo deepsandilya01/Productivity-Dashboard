@@ -45,8 +45,12 @@ main {
   height: 100%;
   width: 100%;
   background-color: var(--sec);
+  overflow: auto;
 }
 
+main::-webkit-scrollbar {
+  display: none;
+}
 nav {
   position: fixed;
   width: 100%;
@@ -55,20 +59,79 @@ nav {
 }
 
 section.allElems {
-  height: 100%;
+  gap: 2em;
   width: 100%;
-  padding: 20px;
-  padding-top: 80px;
+  padding: 1.5em;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  position: relative;
+}
+
+header {
+  height: 30vh;
+  width: 100%;
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  border-radius: 1em;
+  justify-content: space-between;
+  padding: 2em;
+}
+
+header .header1 h1 {
+  font-size: 2em;
+  font-weight: 700;
+  margin-bottom: 1vw;
+}
+
+header .header1 input {
+  background-color: transparent;
+  border: none;
+  color: var(--pre);
+  background-color: #ffffff48;
+  padding: 1em 2em;
+  border-radius: 5px;
+  font-size: 0.6em;
+  outline: none;
+  text-transform: capitalize;
+}
+
+header .header1 h2 {
+  font-size: 1.5em;
+  margin-left: 0.4vw;
+  font-weight: 500;
+}
+
+header .header1 h4 {
+  font-size: 1.3em;
+  margin-top: 1vw;
+  font-weight: 500;
+}
+
+header .header2 h2 {
+  font-size: 2.5em;
+  font-family: aeonik2;
+}
+
+header .header2 h4 {
+  font-size: 1.5em;
+  font-weight: 500;
+  margin-bottom: 2vw;
+}
+
+header .header2 h3 {
+  font-size: 1em;
+  font-weight: 500;
+  opacity: 0.8;
+}
+
+.allElems .allFeatures {
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
   gap: 17px;
-  position: absolute;
-  overflow: auto;
-}
-
-section.allElems::-webkit-scrollbar {
-  display: none;
 }
 
 .elem {
@@ -345,6 +408,10 @@ section.allElems::-webkit-scrollbar {
   overflow: auto;
 }
 
+.motivation-fullpage::-webkit-scrollbar {
+  display: none;
+}
+
 .motivation-fullPage-container {
   height: 100%;
   width: 100%;
@@ -569,6 +636,10 @@ section.allElems::-webkit-scrollbar {
   align-items: flex-start;
   padding: 1.6vw;
   overflow: auto;
+}
+
+.daily-goals-fullpage .goals-container .allGoal::-webkit-scrollbar {
+  display: none;
 }
 
 .daily-goals-fullpage .goals-container .allGoal::-webkit-scrollbar {

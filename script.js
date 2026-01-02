@@ -254,3 +254,163 @@ function dailyGoals() {
 }
 
 dailyGoals();
+
+function dateTimeWeather() {
+  const API_KEY = "1ea45e980d314de9bb4183939260201";
+  let CITY = "";
+
+  const dom = {
+    time: document.querySelector(".header1 h1"),
+    date: document.querySelector(".header1 h2"),
+    temp: document.querySelector(".header2 h2"),
+    condition: document.querySelector(".header2 h4"),
+    precipitation: document.querySelector(".header2 .precipitation"),
+    humidity: document.querySelector(".header2 .humidity"),
+    wind: document.querySelector(".header2 .wind"),
+    header: document.querySelector("header"),
+  };
+
+  const headerInput = document.querySelector(".header1 input");
+  const header1h4 = document.querySelector(".header1 h4");
+
+  async function weatherAPICall(city) {
+    try {
+      const res = await fetch(
+        `https://api.weatherapi.com/v1/current.json?key=${API_KEY}&q=${city},IN`
+      );
+
+      const data = await res.json();
+
+      if (data.error) {
+        throw new Error(data.error.message);
+      }
+
+      const { current, location } = data;
+
+      dom.temp.textContent = `${current.temp_c} °C`;
+      dom.condition.textContent = current.condition.text;
+      dom.precipitation.textContent = `Precipitation : ${current.precip_mm} mm`;
+      dom.humidity.textContent = `Humidity : ${current.humidity}%`;
+      dom.wind.textContent = `Wind : ${current.wind_kph} km/h`;
+
+      header1h4.textContent = `${location.name}, ${location.country}`;
+    } catch (err) {
+      console.error("Weather API Error:", err);
+
+      dom.temp.textContent = `Temp : ?`;
+      dom.condition.textContent = `Condition : ?`;
+      dom.precipitation.textContent = `Precipitation : ?`;
+      dom.humidity.textContent = `Humidity : ?`;
+      dom.wind.textContent = `Wind : ?`;
+
+      header1h4.textContent = `City not found ❌`;
+    }
+  }
+
+  headerInput.addEventListener("keydown", function (e) {
+    if (e.key === "Enter") {
+      CITY = e.target.value.trim();
+
+      if (CITY.length > 2) {
+        weatherAPICall(CITY);
+        headerInput.value = "";
+      }
+    }
+  });
+
+  const days = [
+    "Sunday",
+    "Monday",
+    "Tuesday",
+    "Wednesday",
+    "Thursday",
+    "Friday",
+    "Saturday",
+  ];
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+
+  const pad = (n) => String(n).padStart(2, "0");
+
+  function setBackground(hours) {
+    let img = "";
+
+    // 🌙 Late Night (12 AM – 4 AM)
+    if (hours >= 0 && hours < 4) {
+      img = "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee"; // deep night sky
+    }
+
+    // 🌌 Early Morning (4 AM – 6 AM)
+    else if (hours >= 4 && hours < 6) {
+      img = "https://images.unsplash.com/photo-1502082553048-f009c37129b9"; // dawn
+    }
+
+    // 🌅 Morning (6 AM – 9 AM)
+    else if (hours >= 6 && hours < 9) {
+      img = "https://images.unsplash.com/photo-1493359280673-61f0f1a7a11e"; // sunrise
+    }
+
+    // ☀️ Late Morning (9 AM – 12 PM)
+    else if (hours >= 9 && hours < 12) {
+      img = "https://images.unsplash.com/photo-1498354136128-58f790194fa7"; // bright morning
+    }
+
+    // 🌤️ Afternoon (12 PM – 4 PM)
+    else if (hours >= 12 && hours < 16) {
+      img = "https://images.unsplash.com/photo-1717361279773-b2e7ee713d2e"; // sunny afternoon
+    }
+
+    // 🌇 Evening (4 PM – 6 PM)
+    else if (hours >= 16 && hours < 18) {
+      img = "https://images.unsplash.com/photo-1500534314209-a25ddb2bd429"; // golden hour
+    }
+
+    // 🌆 Sunset (6 PM – 8 PM)
+    else if (hours >= 18 && hours < 20) {
+      img = "https://images.unsplash.com/photo-1722999523044-80af4abe1ada"; // sunset
+    }
+
+    // 🌙 Night (8 PM – 12 AM)
+    else {
+      img = "https://images.unsplash.com/photo-1514912885225-5c9ec8507d68"; // night city
+    }
+
+    document.querySelector("header").style.backgroundImage = `url(${img})`;
+  }
+
+  function timeDate() {
+    const now = new Date();
+
+    const dayName = days[now.getDay()];
+    const hours24 = now.getHours();
+    const minutes = pad(now.getMinutes());
+    const seconds = pad(now.getSeconds());
+
+    const hours12 = hours24 % 12 || 12;
+    const ampm = hours24 >= 12 ? "PM" : "AM";
+
+    dom.time.textContent = `${dayName} ${hours12}:${minutes}:${seconds} ${ampm}`;
+    dom.date.textContent = `${now.getDate()} ${
+      months[now.getMonth()]
+    }, ${now.getFullYear()}`;
+
+    setBackground(hours24);
+  }
+
+  timeDate();
+  setInterval(timeDate, 1000);
+}
+
+dateTimeWeather();
