@@ -6,6 +6,7 @@ A modern, responsive, and theme-based **Productivity Dashboard** that helps user
 🔗 **Live Application**  
 👉 https://deepsandilya01.github.io/Productivity-Dashboard/
 
+Built with ❤️ by Deep Sandilya
 ---
 
 ## 📌 Product Vision
