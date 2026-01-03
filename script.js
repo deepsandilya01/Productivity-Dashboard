@@ -167,7 +167,7 @@ function pomodoroTimer() {
           clearInterval(timerInterval);
           timer.innerHTML = `05:00`;
         }
-      }, 1);
+      }, 1000);
     } else {
       timerInterval = setInterval(function () {
         if (totalSeconds > 0) {
@@ -182,7 +182,7 @@ function pomodoroTimer() {
           clearInterval(timerInterval);
           timer.innerHTML = `25:00`;
         }
-      }, 1);
+      }, 1000);
     }
   }
 
@@ -254,7 +254,6 @@ function dateTimeWeather() {
   const API_KEY = "751765e0045f4357b15105848252412";
   let CITY = "";
 
-  /* ================= DOM CACHE ================= */
   const dom = {
     time: document.querySelector(".header1 h1"),
     date: document.querySelector(".header1 h2"),
@@ -269,7 +268,6 @@ function dateTimeWeather() {
   const headerInput = document.querySelector(".header1 input");
   const header1h4 = document.querySelector(".header1 h4");
 
-  /* ================= WEATHER ================= */
   async function weatherAPICall(city) {
     try {
       const res = await fetch(
@@ -278,7 +276,6 @@ function dateTimeWeather() {
 
       const data = await res.json();
 
-      // 🔴 API error handling (IMPORTANT)
       if (data.error) {
         throw new Error(data.error.message);
       }
@@ -305,19 +302,17 @@ function dateTimeWeather() {
     }
   }
 
-  /* ================= INPUT HANDLER ================= */
   headerInput.addEventListener("keydown", function (e) {
     if (e.key === "Enter") {
       CITY = e.target.value.trim();
 
       if (CITY.length > 2) {
         weatherAPICall(CITY);
-        headerInput.value = ""; // input clear
+        headerInput.value = "";
       }
     }
   });
 
-  /* ================= TIME & DATE ================= */
   const days = [
     "Sunday",
     "Monday",
@@ -378,12 +373,11 @@ function dateTimeWeather() {
         "https://images.unsplash.com/photo-1500530855697-b586d89ba3ee?auto=format&fit=crop&w=1600&q=80";
     }
 
-    // 🔥 FORCE UPDATE (important)
     dom.header.style.backgroundImage = `url("${img}")`;
     dom.header.style.backgroundSize = "cover";
     dom.header.style.backgroundPosition = "center";
 
-    console.log("BG changed:", img); // ✅ DEBUG PROOF
+    console.log("BG changed:", img);
   }
 
   function timeDate() {

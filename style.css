@@ -22,6 +22,11 @@
   box-sizing: border-box;
   font-family: aeonik;
   color: var(--pre);
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
 
 html,
@@ -30,7 +35,7 @@ body {
   width: 100%;
 }
 
-#main {
+main {
   min-height: 110vh;
   width: 100%;
   background-color: var(--sec);
@@ -348,7 +353,7 @@ details p {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-
+/* 
 .daily-planner-fullpage .day-planner::-webkit-scrollbar {
   background-color: var(--pre);
   border-radius: 10vw;
@@ -357,7 +362,7 @@ details p {
 .daily-planner-fullpage .day-planner::-webkit-scrollbar-thumb {
   background-color: var(--sec);
   border-radius: 10vw;
-}
+} */
 
 .daily-planner-fullpage .day-planner .day-planner-time {
   display: flex;
