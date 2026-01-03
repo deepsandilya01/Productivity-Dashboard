@@ -1,17 +1,17 @@
 function openFeatures() {
-  let allElems = document.querySelectorAll(".elem");
-  let fullElemPage = document.querySelectorAll(".fullElem");
-  let fullElemPageBackBtn = document.querySelectorAll(".fullElem .back");
+  const cards = document.querySelectorAll(".elem");
+  const closeBtns = document.querySelectorAll(".fullElem .back");
 
-  allElems.forEach(function (elem) {
-    elem.addEventListener("click", function () {
-      fullElemPage[elem.id].style.display = "block";
+  cards.forEach((card) => {
+    card.addEventListener("click", () => {
+      const target = card.dataset.target;
+      document.getElementById(target).style.display = "block";
     });
   });
 
-  fullElemPageBackBtn.forEach(function (back) {
-    back.addEventListener("click", function () {
-      fullElemPage[back.id].style.display = "none";
+  closeBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      btn.closest(".fullElem").style.display = "none";
     });
   });
 }
@@ -406,32 +406,60 @@ function dateTimeWeather() {
 dateTimeWeather();
 
 function themeChange() {
-  let rootElement = document.documentElement;
+  let flag = Number(localStorage.getItem("themeFlag")) || 0;
+  const root = document.documentElement;
 
-  let flag = 0;
-
-  let theme = document.querySelector(".theme");
-  theme.addEventListener("click", function () {
+  function applyTheme(flag) {
     if (flag === 0) {
-      rootElement.style.setProperty("--pre", "#50390aff");
-      rootElement.style.setProperty("--sec", "#FDF7E4");
-      rootElement.style.setProperty("--tri1", "#FFE1AF");
-      rootElement.style.setProperty("--tri2", "#d7ccb7ff");
-      flag = 1;
+      // 🌞 Warm Classic Theme
+      root.style.setProperty("--pre", "#F8F4E1");
+      root.style.setProperty("--sec", "#391a05");
+      root.style.setProperty("--tri1", "#FEBA17");
+      root.style.setProperty("--tri2", "#74512D");
+
+      root.style.setProperty("--border-main", "#FEBA17");
+      root.style.setProperty("--border-glow", "#FEBA17");
     } else if (flag === 1) {
-      rootElement.style.setProperty("--pre", "#e4ffccff");
-      rootElement.style.setProperty("--sec", "#537D5D");
-      rootElement.style.setProperty("--tri1", "#b2b865ff");
-      rootElement.style.setProperty("--tri2", "#9EBC8A");
-      flag = 2;
-    } else if (flag === 2) {
-      rootElement.style.setProperty("--pre", "#F8F4E1");
-      rootElement.style.setProperty("--sec", "#391a05");
-      rootElement.style.setProperty("--tri1", "#FEBA17");
-      rootElement.style.setProperty("--tri2", "#74512D");
-      flag = 0;
+      // 🤍 Soft Cream Theme
+      root.style.setProperty("--pre", "#50390aff");
+      root.style.setProperty("--sec", "#FDF7E4");
+      root.style.setProperty("--tri1", "#FFE1AF");
+      root.style.setProperty("--tri2", "#d7ccb7ff");
+
+      root.style.setProperty("--border-main", "#8B5E34");
+      root.style.setProperty("--border-glow", "#D4A373");
+    } else {
+      // 🌿 Green Fresh Theme
+      root.style.setProperty("--pre", "#e4ffccff");
+      root.style.setProperty("--sec", "#537D5D");
+      root.style.setProperty("--tri1", "#b2b865ff");
+      root.style.setProperty("--tri2", "#9EBC8A");
+
+      root.style.setProperty("--border-main", "#1B5E20");
+      root.style.setProperty("--border-glow", "#A5D6A7");
     }
+  }
+
+  applyTheme(flag);
+
+  document.querySelector(".theme").addEventListener("click", () => {
+    flag = (flag + 1) % 3;
+    localStorage.setItem("themeFlag", flag);
+    applyTheme(flag);
   });
 }
 
 themeChange();
+
+function fooderFetures() {
+  document.querySelectorAll("footer a[href^='#']").forEach((link) => {
+    link.addEventListener("click", (e) => {
+      e.preventDefault();
+      const id = link.getAttribute("href").slice(1);
+      const section = document.getElementById(id);
+      if (section) section.style.display = "block";
+    });
+  });
+}
+
+fooderFetures();

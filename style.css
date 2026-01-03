@@ -4,6 +4,8 @@
   --tri1: #feba17;
   --tri2: #74512d;
   --black: black;
+  --border-main: #feba17;
+  --border-glow: #feba17;
 }
 
 @font-face {
@@ -14,6 +16,53 @@
 @font-face {
   font-family: aeonik2;
   src: url(./AeonikTRIAL-Bold.otf);
+}
+
+@property --deg {
+  syntax: "<angle>";
+  inherits: false;
+  initial-value: 0deg;
+}
+
+@keyframes changes {
+  from {
+    --deg: 0deg;
+  }
+  to {
+    --deg: 360deg;
+  }
+}
+
+@keyframes headerGlowSmooth {
+  0% {
+    box-shadow: 0 0 8px 2px
+        color-mix(in srgb, var(--border-main) 40%, transparent),
+      inset 0 0 0 transparent;
+  }
+
+  25% {
+    box-shadow: 0 0 18px 4px
+        color-mix(in srgb, var(--border-glow) 60%, transparent),
+      inset 0 0 0 transparent;
+  }
+
+  50% {
+    box-shadow: 0 0 30px 6px
+        color-mix(in srgb, var(--border-glow) 90%, transparent),
+      inset 0 0 0 transparent;
+  }
+
+  75% {
+    box-shadow: 0 0 18px 4px
+        color-mix(in srgb, var(--border-glow) 60%, transparent),
+      inset 0 0 0 transparent;
+  }
+
+  100% {
+    box-shadow: 0 0 8px 2px
+        color-mix(in srgb, var(--border-main) 40%, transparent),
+      inset 0 0 0 transparent;
+  }
 }
 
 * {
@@ -34,13 +83,15 @@ body {
   height: 100%;
   width: 100%;
 }
+html {
+  scroll-behavior: smooth;
+}
 
 main {
   min-height: 110vh;
   width: 100%;
   background-color: var(--sec);
 }
-
 
 section.allElems {
   gap: 2vw;
@@ -59,9 +110,12 @@ header {
   background-position: center;
   display: flex;
   align-items: center;
-  border-radius: 1vw;
   justify-content: space-between;
   padding: 2vw;
+
+  border-radius: 1vw;
+
+  animation: headerGlowSmooth 8s linear infinite;
 }
 
 header .header1 h1 {
@@ -120,17 +174,40 @@ header .header2 h3 {
   height: 42vh;
   width: 17.4vw;
   border-radius: 0.5vw;
-  overflow: hidden;
   position: relative;
   transition: all ease 0.25s;
   cursor: pointer;
-  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 0 35px transparent;
+
+  overflow: hidden;
+  border: 4px solid transparent;
+
+  background: linear-gradient(var(--sec), var(--sec)) padding-box,
+    conic-gradient(
+        from var(--deg),
+        transparent,
+        var(--border-main),
+        transparent
+      )
+      border-box;
+
+  animation: changes 4s linear infinite;
+  animation-play-state: paused;
 }
 
+.elem:hover {
+  overflow: visible;
+  animation-play-state: running;
+  box-shadow: 0 0 35px var(--tri1);
+}
+.elem:active {
+  scale: 0.97;
+}
 .elem img {
   height: 100%;
   width: 100%;
   object-fit: cover;
+  border-radius: 9px;
 }
 
 .elem h2 {
@@ -139,10 +216,6 @@ header .header2 h3 {
   font-weight: 400;
   font-size: 1.6vw;
   right: 5%;
-}
-
-.elem:active {
-  scale: 0.97;
 }
 
 .fullElem {
@@ -353,16 +426,6 @@ details p {
   flex-wrap: wrap;
   justify-content: space-between;
 }
-/* 
-.daily-planner-fullpage .day-planner::-webkit-scrollbar {
-  background-color: var(--pre);
-  border-radius: 10vw;
-}
-
-.daily-planner-fullpage .day-planner::-webkit-scrollbar-thumb {
-  background-color: var(--sec);
-  border-radius: 10vw;
-} */
 
 .daily-planner-fullpage .day-planner .day-planner-time {
   display: flex;
@@ -646,6 +709,20 @@ nav {
   padding: 1vw 2vw;
   padding-top: 1.8vw;
   z-index: 9;
+  border-radius: 1vw;
+  border: 5px solid transparent;
+
+  background: linear-gradient(var(--pre), var(--pre)) padding-box,
+    conic-gradient(
+        from var(--deg),
+        transparent,
+        var(--border-main),
+        transparent
+      )
+      border-box;
+
+  animation: changes 6s linear infinite;
+  box-shadow: 0 0 35px var(--border-glow);
 }
 
 .nav-inner {
@@ -682,10 +759,54 @@ nav {
   scale: 0.95;
 }
 
+.footer {
+  margin-top: 5vw;
+  background-color: var(--tri2);
+}
+
+.footer-container {
+  position: relative;
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 3vw;
+  padding: 4vw 6vw;
+
+  border-radius: 1.2vw;
+  border: 3px solid transparent;
+
+  background: linear-gradient(var(--tri2), var(--tri2)) padding-box,
+    conic-gradient(
+        from var(--deg),
+        transparent,
+        var(--border-main),
+        transparent
+      )
+      border-box;
+
+  animation: changes 8s linear infinite;
+  box-shadow: 0 0 30px var(--border-glow);
+}
+
+.footer-box h2,
+.footer-box h3 {
+  margin-bottom: 1vw;
+}
+
+.footer-box a {
+  text-decoration: none;
+}
+.footer-bottom {
+  text-align: center;
+  padding: 1.5vw;
+  background-color: var(--sec);
+}
+
 @media (max-width: 660px) {
   header {
     padding: 4vw 2vw;
     margin: 1vw;
+    animation-duration: 12s;
   }
 
   header .header1 h1 {
