@@ -498,7 +498,7 @@ header .header2 h3 {
           align-items: flex-start;
   gap: 0.5vw;
   cursor: pointer;
-  text-decoration: underline;
+  text-decoration:none;
 }
 
 .task summary span {
