@@ -182,6 +182,9 @@ section.allElems {
 }
 
 header {
+  margin-top: 8vh;
+  margin-bottom: 3vh;
+  height: 38vh;
   width: 100%;
   background-size: cover;
   background-position: center;
@@ -1089,8 +1092,11 @@ nav {
 
 @media (max-width: 660px) {
   header {
+    height: 25vh;
     padding: 4vw 2vw;
-    margin: 1vw;
+    margin-top: 6vh;
+    margin-left: 1vw;
+    margin-right: 1vw;
     -webkit-animation-duration: 12s;
             animation-duration: 12s;
   }
